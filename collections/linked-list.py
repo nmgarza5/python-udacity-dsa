@@ -36,14 +36,14 @@ class LinkedList(object):
         # 4) and if there is a next position, move current to current.next and increment position. if this is target position, return
         # 5) if there is no next position, we are at the end of the list
         current = self.head
-        current_position = 0 if current == None else 1
+        current_position = 1
 
-        while position != current_position and current:
-            if current.next:
+        while current_position <= position:
+            if current_position == position:
+                return current
+            elif current.next:
                 current = current.next
                 current_position += 1
-                if current_position == position:
-                    return current
             else:
                 break
         return None
@@ -54,9 +54,9 @@ class LinkedList(object):
         Inserting at position 3 means between
         the 2nd and 3rd elements."""
         current = self.head
-        current_position = 0 if current == None else 1
+        current_position = 1
 
-        while current_position != position:
+        while current_position < position:
             if current_position == position-1:
                 temp = current.next
                 new_element.next = temp
@@ -70,12 +70,11 @@ class LinkedList(object):
     def delete(self, value):
         """Delete the first node with a given value."""
         current = self.head
-        current_position = 0 if current == None else 1
+        current_position = 1
 
         while current:
             if current.value == value and current_position == 1:
-                current = current.next
-                self.head = current
+                self.head = current.next
                 return
             elif current.next.value == value:
                 current.next = current.next.next
@@ -85,11 +84,13 @@ class LinkedList(object):
 
     def print(self):
         current = self.head
+        ll = []
         while current:
-            print(current.value)
+            ll.append(current.value)
             if current.next == None:
-                return
+                break
             current = current.next
+        print(ll, '-- list')
 
 # Test cases
 # Set up some Elements
@@ -98,10 +99,36 @@ e2 = Element(2)
 e3 = Element(3)
 e4 = Element(4)
 
+a1 = Element(1)
+a2 = Element(2)
+a3 = Element(3)
+a4 = Element(4)
+a5 = Element(5)
+a6 = Element(6)
+a7 = Element(7)
+a8 = Element(8)
+
 # Start setting up a LinkedList
 ll = LinkedList(e1)
+test = LinkedList(a1)
 ll.append(e2)
 ll.append(e3)
+
+
+test.append(a2)
+test.append(a3)
+test.append(a4)
+test.append(a5)
+test.append(a7)
+test.append(a8)
+
+
+test.print()
+test.insert(a6,6)
+test.print()
+
+test.delete(2)
+test.print()
 
 # Test get_position
 # Should print 3
@@ -110,24 +137,23 @@ ll.append(e3)
 # print(ll.get_position(3).value)
 
 # Test insert
-ll.insert(e4,3)
-# Should print 4 now
-# print(ll.get_position(3).value)
-# print(ll.get_position(2).value)
-
-# should print 1, 2, 4, 3
-# ll.print()
-
-# # Test delete
-print(ll.head.value)
-ll.delete(1)
-print(ll.head.value)
-print(ll.head.next.value)
-print(ll.head.next.next.value)
-ll.print()
-# # Should print 2 now
-print(ll.get_position(1))
+# ll.insert(e4,3)
 # # Should print 4 now
-print(ll.get_position(2).value)
-# Should print 3 now
-print(ll.get_position(3).value)
+# # print(ll.get_position(3).value)
+# # print(ll.get_position(2).value)
+
+# # should print 1, 2, 4, 3
+# # ll.print()
+
+# # # Test delete
+# ll.print()
+# ll.delete(1)
+# print("-----")
+# ll.print()
+# print("-----")
+# # # Should print 2 now
+# print(ll.get_position(1).value, '-- position 1')
+# # # Should print 4 now
+# print(ll.get_position(2).value, '-- position 2')
+# # Should print 3 now
+# print(ll.get_position(3).value, '-- position 3')
